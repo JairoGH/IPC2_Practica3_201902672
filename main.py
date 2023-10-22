@@ -3,13 +3,12 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 movies = []
 
-
 #Server ON
 @app.route('/')
 def index():
-    return "API CINEGUATEMALA", 200
+    return "API CINE GUATEMALA", 200
 
-# Ruta para agregar una nueva película
+#Ruta para agregar una nueva película
 @app.route('/new-movie', methods=['POST'])
 def registrar_pelicula():
 
@@ -40,7 +39,7 @@ def registrar_pelicula():
     return jsonify({'msg': 'Película creada con éxito'}), 201
 
 
-# Ruta para buscar x Genero
+#Ruta para buscar x Genero
 @app.route('/all-movies-by-genre/<string:genre>', methods=['GET'])
 def buscar_por_genero(genre):
 
@@ -54,7 +53,7 @@ def buscar_por_genero(genre):
     #Si no, se retorna la lista de peliculas con el genero buscado
     return jsonify(genero_peliculas), 200
 
-# Ruta para actualizar pelicula x Id
+#Ruta para actualizar pelicula x Id
 @app.route('/update-movie/<int:movie_id>', methods=['PUT'])
 def actualizar_pelicula(movie_id):
 
@@ -66,6 +65,7 @@ def actualizar_pelicula(movie_id):
 
     #Se recorre la lista de peliculas
     for inicio, pelicula in enumerate(movies):
+
         #Se verifica que el id de la pelicula exista
         if pelicula['movieId'] == movie_id:
             movies[inicio] = pelicula_actualizada
@@ -75,6 +75,6 @@ def actualizar_pelicula(movie_id):
     return jsonify({'msg': 'No se encontro una pelicula con el movieId proporcionado'}), 404
 
 
-# Método que inicia la aplicación
+#Método que inicia la aplicación
 if __name__ == '__main__':
     app.run(debug=True)
